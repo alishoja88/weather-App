@@ -1,23 +1,39 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { getWeatherAndForecastData } from './utils/api';
+import CitySearch from './components/CitySearch';
+import CityWeather from './components/CityWeather';
+import WeatherForecast from './components/WeatherForecast';
+import WeatherCards from './components/WeatherCards';
 
 function App() {
+  const [city, setCity] = useState(null);
+  const [weatherData, setWeatherData] = useState(null);
+  const [forecastData, setForecastData] = useState(null);
+
+  const handleSearch = async (cityName) => {
+    const data = await getWeatherAndForecastData(cityName);
+    if (data === null) {
+      setCity(null);
+      setWeatherData(null);
+      setForecastData(null);
+    } else {
+      setCity(data.weatherData);
+      setWeatherData(data.weatherData);
+      setForecastData(data.forecastData);
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <CitySearch handleSearch={handleSearch} />
+      {city && (
+        <>
+          <CityWeather city={city} weatherData={weatherData} />
+          <WeatherForecast forecastData={forecastData} />
+          <WeatherCards forecastData={forecastData} />
+        </>
+      )}
     </div>
   );
 }
