@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faCloud, faCloudRain, faSnowflake } from '@fortawesome/free-solid-svg-icons';
-// eslint-disable-next-line no-unused-vars
 import moment from 'moment-timezone';
 
 const useStyles = makeStyles((theme) => ({
